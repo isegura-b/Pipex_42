@@ -6,7 +6,7 @@
 /*   By: isegura- <isegura-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 12:50:51 by isegura-          #+#    #+#             */
-/*   Updated: 2025/01/20 15:37:25 by isegura-         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:04:13 by isegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	parent_process(char **env, char **av, int *connection_pipe)
 	char	*final_path;
 
 	commands = ft_split(av[3], ' ');
-	fd = open_file(av[4], O_RDONLY);
-	if (fd == -1)
-		error("Error opening outfile");
-	final_path = get_def_path(path, commands[0]);
+	fd = open_file(av[4], 1);
+	final_path = get_def_path(env, commands[0]);
 	if (!final_path)
 		error("Error with path");
 	dup2(fd, 1);
@@ -30,10 +28,9 @@ void	parent_process(char **env, char **av, int *connection_pipe)
 	close(connection_pipe[1]);
 	if (execve(final_path, commands, env) == -1)
 	{
-		free_arr(commands);
+		free_spl(commands);
 		error("Error in execve");
 	}
-	free(commddands);
 }
 
 void	child_process(char **env, char **av, int *connection_pipe)
@@ -42,7 +39,7 @@ void	child_process(char **env, char **av, int *connection_pipe)
 	int		fd;
 	char	*final_path;
 
-	commands = ft_split(commands, ' ');
+	commands = ft_split(av[2], ' ');
 	fd = open_file(av[1], 0);
 	final_path = get_def_path(env, commands[0]);
 	if (!final_path)
@@ -70,7 +67,7 @@ int	main(int ac, char **av, char **env)
 	fork_pid = fork();
 	if (fork_pid == -1)
 		error("Fork fail");
-	if (!pid):
+	if (!fork_pid)
 		child_process(env, av, connect_pipe);
 	parent_process(env, av, connect_pipe);
 	return (0);
