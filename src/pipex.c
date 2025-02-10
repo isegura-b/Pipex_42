@@ -6,7 +6,7 @@
 /*   By: isegura- <isegura-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 12:50:51 by isegura-          #+#    #+#             */
-/*   Updated: 2025/02/04 17:04:13 by isegura-         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:10:28 by isegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	child_process(char **env, char **av, int *connection_pipe)
 		free_spl(commands);
 		error("Error in execve");
 	}
+
 }
 
 int	main(int ac, char **av, char **env)

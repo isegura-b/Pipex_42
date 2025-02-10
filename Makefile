@@ -6,14 +6,14 @@
 #    By: isegura- <isegura-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/14 15:31:55 by isegura-          #+#    #+#              #
-#    Updated: 2025/01/14 15:37:37 by isegura-         ###   ########.fr        #
+#    Updated: 2025/02/04 16:06:45 by isegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 BONUS_NAME = pipex_bonus
 CC = cc -g
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 LIBFT_DIR = ./libft
