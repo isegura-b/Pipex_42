@@ -6,18 +6,18 @@
 #    By: isegura- <isegura-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/14 15:31:55 by isegura-          #+#    #+#              #
-#    Updated: 2025/02/04 16:06:45 by isegura-         ###   ########.fr        #
+#    Updated: 2025/02/11 17:21:36 by isegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-BONUS_NAME = pipex_bonus
 CC = cc -g
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
+
 
 SRC = $(SRC_DIR)/pipex.c \
       $(SRC_DIR)/pipex_utils.c \
@@ -32,22 +32,20 @@ all: libs $(NAME)
 libs:
 		make -C $(LIBFT_DIR)
 
-$(NAME): 	$(OBJ)
+$(NAME): 	$(OBJ) $(LIBFT)
 			$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME)
-
-bonus:	libs $(BONUS_OBJ)
-		$(CC) $(CFLAGS) $(BONUS_OBJ) -L$(LIBFT_DIR) -lft -o $(BONUS_NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDE) Makefile
 				mkdir -p $(OBJ_DIR)
 				$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-		$(MAKE) -C $(LIBFT_DIR)
+		$(MAKE) -C $(LIBFT_DIR) clean
 		rm -rf $(OBJ_DIR)
 
 fclean: clean
 		$(MAKE) -C $(LIBFT_DIR) fclean
+		rm -f $(NAME)
 
 re: fclean all
 
